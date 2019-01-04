@@ -13,16 +13,20 @@ class SplitUp {
     //ultimately have filedialogue identify path
     //change public static to private and make public getters and setters
 
-    private static String absolutePath = "C:\\Users\\steph\\Documents\\TestFolder";
+    //private static String absolutePath = "C:\\Users\\steph\\Documents\\TestFolder";
 
     public static RenamePdfs rename = new RenamePdfs();
 
-    public static String getAbsolutePath() {
-        return absolutePath;
-    }
+    //public static String getAbsolutePath() {
+    //    return absolutePath;
+    //}
 
+    private static Main main = new Main();
 
     public static void splitUpPdf() {
+
+        String absolutePath = main.getAbsolutePath();
+
         PDDocument pdDoc = null;
         PDFTextStripper pdfStripper;
 

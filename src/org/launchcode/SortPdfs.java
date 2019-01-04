@@ -14,6 +14,7 @@ public class SortPdfs {
 
     private static HashMap<String, String> sortedDict;
     private static String date = UploadDate.getUploadDate();
+    private static Main main = new Main();
     //private static ArrayList<String> sortedFiles;
 
     public SortPdfs(HashMap<String, String> sortedDict) {
@@ -117,7 +118,7 @@ public class SortPdfs {
     }
 
     public static void sortFolders() {
-        File dir = new File("C:\\Users\\steph\\Documents\\TestFolder");
+        File dir = new File(main.getAbsolutePath());
         File[] filesInDir = dir.listFiles();
         for (File file : filesInDir) {
             String fileName = file.getName();
@@ -129,8 +130,8 @@ public class SortPdfs {
                 String newPath = sortedDict.get(finalVar);
                 Path temp = null;
                 try {
-                    temp = Files.move(Paths.get("C:\\Users\\steph\\Documents\\TestFolder\\"+fileName),
-                            Paths.get("C:\\Users\\steph\\Documents\\TestFolder\\"+newPath+"\\"+fileName));
+                    temp = Files.move(Paths.get(main.getAbsolutePath()+fileName),
+                            Paths.get(main.getAbsolutePath()+newPath+"\\"+fileName));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

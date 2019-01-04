@@ -14,6 +14,7 @@ public class Missing {
 
     private static ArrayList<String> missingList;
     public static UploadDate uploadDate = new UploadDate();
+    private static Main main = new Main();
 
     public Missing(ArrayList<String> missingList) {
         String date = uploadDate.getUploadDate();
@@ -54,13 +55,13 @@ public class Missing {
     public static void missingCarf() throws IOException {
         ArrayList<String> missingListFile = new ArrayList<>();
         for (String fileName : missingList) {
-            File caseOne = new File("C:\\Users\\steph\\Documents\\TestFolder\\"+fileName);
+            File caseOne = new File(main.getAbsolutePath()+fileName);
             boolean exists = caseOne.exists();
             if (!exists) {
                 missingListFile.add(fileName);
             }
         }
-        FileWriter writer = new FileWriter("C:\\Users\\steph\\Documents\\TestFolder\\Missing CARF.txt");
+        FileWriter writer = new FileWriter(main.getAbsolutePath()+"Missing CARF.txt");
         for (String str : missingListFile) {
             str = str.replaceAll("[0-9]", "");
             String finalStr = str.replaceAll(".pdf", "");

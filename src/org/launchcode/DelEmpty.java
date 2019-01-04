@@ -6,14 +6,16 @@ public class DelEmpty {
 
     //clean this all up
 
-    private static final String FOLDER_LOCATION = "C:\\Users\\steph\\Documents\\TestFolder"; //make seperate enum?
+    //private static final String FOLDER_LOCATION = "C:\\Users\\steph\\Documents\\TestFolder"; //make seperate enum?
+    private static Main main = new Main();
+
     private static boolean isFinished = false;
 
     public static void startDel() {
 
         do {
             isFinished = true;
-            replaceText(FOLDER_LOCATION);
+            replaceText(main.getAbsolutePath());
         } while (!isFinished);
     }
 

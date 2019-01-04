@@ -9,6 +9,8 @@ public class CreateFolder {
 
     private static ArrayList<String> folders;
 
+    private static Main main = new Main();
+
     public CreateFolder(ArrayList<String> folders) {
         folders.add("Assessments");
         folders.add("Plans");
@@ -28,7 +30,7 @@ public class CreateFolder {
 
     public static void createFolders() {
         for (String folder : folders) {
-            new File("C:\\Users\\steph\\Documents\\TestFolder\\" + folder).mkdirs();
+            new File(main.getAbsolutePath() + folder).mkdirs();
 
         }
 
