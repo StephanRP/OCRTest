@@ -118,6 +118,8 @@ public class RenamePdfs {
         nameDict.put("support logs\r\n", date+" Support Logs");
         nameDict.put("client file review\r\n", date+" Client File Review");
         nameDict.put("plb elig\r\n", date+" PLB Eligibility");
+        nameDict.put("professional ver\r\n", date+" Professional Verification");
+        nameDict.put("vark\r\n", date+" VARK");
         this.nameDict = nameDict;
     }
 

@@ -117,8 +117,8 @@ public class SortPdfs {
 
     }
 
-    public static void sortFolders() {
-        File dir = new File(main.getAbsolutePath());
+    public static void sortFolders(String clientFolderName) {
+        File dir = new File(clientFolderName);
         File[] filesInDir = dir.listFiles();
         for (File file : filesInDir) {
             String fileName = file.getName();
@@ -130,8 +130,8 @@ public class SortPdfs {
                 String newPath = sortedDict.get(finalVar);
                 Path temp = null;
                 try {
-                    temp = Files.move(Paths.get(main.getAbsolutePath()+fileName),
-                            Paths.get(main.getAbsolutePath()+newPath+"\\"+fileName));
+                    temp = Files.move(Paths.get(clientFolderName+"\\"+fileName),
+                            Paths.get(clientFolderName+"\\"+newPath+"\\"+fileName));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

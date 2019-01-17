@@ -28,9 +28,9 @@ public class CreateFolder {
 
     }
 
-    public static void createFolders() {
+    public static void createFolders(String clientFolderName) {
         for (String folder : folders) {
-            new File(main.getAbsolutePath() + folder).mkdirs();
+            new File(clientFolderName +"\\"+ folder).mkdirs();
 
         }
 

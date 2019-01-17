@@ -7,21 +7,20 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.SwingUtilities;
 import java.io.IOException;
-import javax.swing.filechooser.*;
 
 /*
- * FileChooserDemo.java uses these files:
+ * FileChooser.java uses these files:
  *   images/Open16.gif
  *   images/Save16.gif
  */
-public class FileChooserDemo extends JPanel
+public class FileChooser extends JPanel
         implements ActionListener {
     static private final String newline = "\n";
     JButton openButton, saveButton;
     JTextArea log;
     JFileChooser fc;
 
-    public FileChooserDemo() {
+    public FileChooser() {
         super(new BorderLayout());
 
         //Create the log first, because the action listeners
@@ -70,7 +69,7 @@ public class FileChooserDemo extends JPanel
 
         //Handle open button action.
         if (e.getSource() == openButton) {
-            int returnVal = fc.showOpenDialog(FileChooserDemo.this);
+            int returnVal = fc.showOpenDialog(FileChooser.this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
@@ -91,7 +90,7 @@ public class FileChooserDemo extends JPanel
 
             //Handle save button action.
         } else if (e.getSource() == saveButton) {
-            int returnVal = fc.showSaveDialog(FileChooserDemo.this);
+            int returnVal = fc.showSaveDialog(FileChooser.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would save the file.
@@ -105,7 +104,7 @@ public class FileChooserDemo extends JPanel
 
     /** Returns an ImageIcon, or null if the path was invalid. */
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = FileChooserDemo.class.getResource(path);
+        java.net.URL imgURL = FileChooser.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
@@ -121,11 +120,11 @@ public class FileChooserDemo extends JPanel
      */
     public static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("FileChooserDemo");
+        JFrame frame = new JFrame("FileChooser");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new FileChooserDemo());
+        frame.add(new FileChooser());
 
         //Display the window.
         frame.pack();

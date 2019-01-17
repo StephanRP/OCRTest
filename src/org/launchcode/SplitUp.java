@@ -5,6 +5,12 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class SplitUp {
@@ -36,11 +42,26 @@ class SplitUp {
         File[] filesInDir = dir.listFiles();
         for (File file : filesInDir) {
             String fileName = file.getName();
+            String clientFolderName = main.getAbsolutePath() + fileName.substring(0, fileName.lastIndexOf('.'));
+            new File(clientFolderName).mkdirs();
+
+            Path temp = null;
+            try {
+                temp = Files.move(Paths.get(main.getAbsolutePath() + fileName),
+                        Paths.get(clientFolderName + "\\" + fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (temp != null) {
+                System.out.println("File renamed and moved successfully");
+            } else {
+                System.out.println("Failed to move the file");
+            }
             try {
                 //new set page number
                 int i = 1;
                 int j = 1;
-                pdDoc = PDDocument.load(new File(absolutePath + "\\" + fileName));
+                pdDoc = PDDocument.load(new File(clientFolderName + "\\" + fileName));
                 int numPages = pdDoc.getNumberOfPages();
                 //while statement for each page of document with empty list
                 while (i <= numPages) {
@@ -68,7 +89,7 @@ class SplitUp {
                         List<PDDocument> pages = splitter.split(pdDoc);
                         PDDocument pd = pages.get(0);
                         String newName = rename.renamePdfs(parsedText); //new
-                        pd.save(absolutePath + "\\" + newName + ".pdf");
+                        pd.save(clientFolderName + "\\" + newName + ".pdf");
                         //pd.save(absolutePath + "\\" + (Integer.toString(x)) + ".pdf");
                         pd.close();
                         i++;
@@ -85,7 +106,7 @@ class SplitUp {
                         List<PDDocument> pages = splitter.split(pdDoc);
                         PDDocument pd = pages.get(0);
                         String newName = rename.renamePdfs(parsedText); //new
-                        pd.save(absolutePath + "\\" + newName + ".pdf");
+                        pd.save(clientFolderName + "\\" + newName + ".pdf");
                         //pd.save(absolutePath + "\\" + (Integer.toString(x)) + ".pdf");
                         pd.close();
                         j = i;
@@ -103,6 +124,20 @@ class SplitUp {
                 }
 
             }
+            ArrayList<String> missList = new ArrayList<>();
+            Missing missingFiles = new Missing(missList);
+            try {
+                missingFiles.missingCarf(clientFolderName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ArrayList<String> folders = new ArrayList<>();
+            CreateFolder makeFolders = new CreateFolder(folders);
+            makeFolders.createFolders(clientFolderName);
+
+            HashMap<String, String> sortMap = new HashMap<>(); //make initialize in main with get function
+            SortPdfs sort = new SortPdfs(sortMap);
+            sort.sortFolders(clientFolderName);
         }
     }
 }
